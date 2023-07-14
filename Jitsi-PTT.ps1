@@ -1,4 +1,4 @@
-﻿Add-Type -TypeDefinition @"
+Add-Type -TypeDefinition @"
 using System;
 using System.Runtime.InteropServices;
 
@@ -79,6 +79,10 @@ $global:muted = $true
 
 
 while ($true) {
+    if (-not (Get-Process | Where-Object { $_.MainWindowHandle -eq $jH })) {
+        Write-Host "Jitsi Meet window is closed. Exiting the script."
+        Exit
+    }
     # Continue with your script logic here
     Start-Sleep -Milliseconds 10
     CheckCtrlHoldDuration
